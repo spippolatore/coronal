@@ -1,0 +1,34 @@
+{
+  "name": "plasma",
+  "version": "0.0.1",
+  "description": "A ES2015 TypeScript Game Engine inspired by React and Unity",
+  "main": "plasma.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/**/*.js --harmony --harmony_default_parameters"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alaingalvan/Plasma.git"
+  },
+  "keywords": [
+    "game",
+    "engine",
+    "unity",
+    "unreal"
+  ],
+  "author": "Alain Galvan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alaingalvan/Plasma/issues"
+  },
+  "homepage": "https://github.com/alaingalvan/Plasma#readme",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.9"
+  }
+}

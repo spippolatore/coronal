@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "sourceMap": true
+  },
+  "filesGlob": [
+    "./**/*.ts",
+    "!./jspm_packages/**/*.ts",
+    "!./node_modules/**/*.ts",
+    "!./typings/**/*.ts",
+    "./typings/main.d.ts"
+  ],
+  "compileOnSave": true,
+  "buildOnSave": true,
+  "atom": {
+    "rewriteTsconfig": true
+  },
+  "files": [
+    "./plasma.ts",
+    "./src/core.ts",
+    "./src/core/engine.ts",
+    "./src/core/gameobject.ts",
+    "./src/input.ts",
+    "./src/input/keyboard.ts",
+    "./src/input/mouse.ts",
+    "./src/input/touch.ts",
+    "./src/math.ts",
+    "./src/math/angle.ts",
+    "./src/math/easing.ts",
+    "./test/core/gameobject.spec.ts",
+    "./typings/main.d.ts"
+  ]
+}
