@@ -2,7 +2,7 @@
 
 # Plasma Game Engine
 
-[![Build Status](https://api.travis-ci.org/alaingalvan/Plasma.svg)](https://api.travis-ci.org/alaingalvan/Plasma) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
+[![Build Status](https://api.travis-ci.org/alaingalvan/Plasma.svg)](https://travis-ci.org/alaingalvan/Plasma) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
 
 ```bash
 npm i plasma

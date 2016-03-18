@@ -3,3 +3,4 @@ node_js:
 - "5.9"
 before_script:
 - ./node_modules/.bin/typings install
+- npm run build
