@@ -4,7 +4,8 @@
   "description": "A ES2015 TypeScript Game Engine inspired by React and Unity",
   "main": "plasma.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "packages": "jspm_packages"
   },
   "scripts": {
     "build": "./node_modules/.bin/tsc",

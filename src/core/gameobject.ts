@@ -29,14 +29,14 @@ export abstract class GameObject {
   }
 
   // Finds all components of a given type.
-  getComponents<T extends Function>(type: T) {
+  getComponents<T extends Function>(type: T): T[] {
     return this.components.filter((o) => o instanceof type);
   }
 
   // Destroys this gameobject.
   destroy() {
     if (this.root)
-      this.root.components = this.root.components.filter((o:GameObject) => o !== this);
+      this.root.components = this.root.components.filter((o: GameObject) => o !== this);
   }
 
   render() {

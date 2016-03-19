@@ -6,12 +6,11 @@
 
 ```bash
 npm i plasma
-npm i plasma-webgl    # If you want to render with WebGL
 ```
 
-**Plasma** is a TypeScript Game Engine modeled after a number of libraries and engines, such as React, Angular 2, Three.js, Unreal Engine 4, Unity, Godot, and Game Maker Studio.
+**Plasma** is a TypeScript Game Engine modeled after a number of libraries and engines, such as React, Unity, Angular 2, Three.js, Unreal Engine 4, Godot, and Game Maker Studio.
 
-It's designed to have a lightweight core and extendable components, such as a Individual Renderers, Device plugins like MIDI controllers and Wacom Tablets, etc.
+It's designed to have a lightweight core and extendable components, such as a Individual Renderers, Device plugins like MIDI controllers and Wacom Tablets, etc. A bundled and minified version of the engine is very small, and designed to work with tree-shaking systems like [WebPack 2](https://github.com/webpack/webpack/issues/1433).
 
 <!-- * [Versions - Currently @ 1.0.0](https://github.com/alaingalvan/plasma/versions)
 * [Documentation](docs/readme.md)
@@ -39,7 +38,7 @@ class CubeCharacter extends GameObject {
   update(deltaTime: number) {    
     // Check if the ArrowUp key is currently pressed.
     if (Input.getKey(KeyCode.ArrowUp))
-      this.transform.position += 10 * deltaTime; // Move 10 units per second
+      this.transform.position.x += 10 * deltaTime; // Move 10 units per second
   }
 }
 
@@ -49,9 +48,9 @@ Renderer.render(CubeCharacter, document.getElementById('game'));
 
 What will happen here is the `Renderer` will render the `CubeCharacter` we made onto a **canvas** created by it and update it ever 60 fps. Every frame the `update` function of the character will be called, as well as those of the components that the GameObject is made of.
 
-If you want to go further, follow some of the tutorial examples in the docs. These tutorials are in reality full games, so you get to see the full picture!
+<!-- If you want to go further, follow some of the tutorial examples in the docs. These tutorials are in reality full games, so you get to see the full picture!
 
-<!-- #### Easy
+#### Easy
 
 - [Anaconda - Snake Clone]()
 - [Blitz - 1984 Clone]()
@@ -75,7 +74,7 @@ If you want to go further, follow some of the tutorial examples in the docs. The
 
 You can think of a **Game** as a tree of `GameObject`(s), each of which is made of components. This design applies to everything, from characters to levels, to the entire game, everything is a `GameObject`.
 
-A Rendering System is then responsible for taking our **Game** and rendering/animating it. We also use this system to get implementation specific classes like Material, Mesh for `'plasma-webgl'`, or Sprite for `'plasma-canvas'`.
+A Rendering System is then responsible for taking our **Game** and rendering/animating it. We also use this system to get implementation specific classes like 3D Models exported from programs like Blender to Sprites.
 
 ### Decoupled Renderer
 
@@ -83,7 +82,7 @@ A Rendering System is then responsible for taking our **Game** and rendering/ani
 
 The **WebGLRenderer** for example will create a fullscreen canvas at in the **DOMElement** with `id='game'`, with a CubeCharacter at the origin, and a default camera at the point `vec3(10, 10, 10)` pointing at the origin `vec3(0, 0, 0)`.
 
-The [Plasma WebGL Module](https://github.com/alaingalvan/plasma-webgl/docs) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
+The [Plasma WebGL Module](https://github.com/alaingalvan/src/webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
 
 ### Engine Processor
 
