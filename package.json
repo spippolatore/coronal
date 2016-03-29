@@ -8,8 +8,8 @@
     "packages": "jspm_packages"
   },
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
-    "test": "./node_modules/.bin/mocha test/**/*.js"
+    "build": "tsc",
+    "test": "mocha dist/test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/alaingalvan/coronal/issues"
   },
-  "homepage": "https://github.com/alaingalvan/coronal#readme",
+  "homepage": "https://coronal.io",
   "devDependencies": {
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
