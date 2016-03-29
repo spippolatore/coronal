@@ -1,11 +1,11 @@
 import {Keyboard, KeyCode} from './input/keyboard';
 import {Mouse} from './input/mouse';
-import {Touch} from './input/touch';
+import {Touch, ITouches} from './input/touch';
 
 /**
  * Manages all input events.
  */
-class InputManager {
+export class InputManager {
   private keyboard: Keyboard;
   private mouse: Mouse;
   private touch: Touch;

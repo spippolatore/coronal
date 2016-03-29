@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
-    "declaration": false,
+    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmitHelpers": false,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "dist"
   },
   "filesGlob": [
     "./**/*.ts",
+    "!./dist/**/*.ts",
     "!./jspm_packages/**/*.ts",
     "!./node_modules/**/*.ts",
     "!./typings/**/*.ts",
@@ -23,7 +25,7 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "./plasma.ts",
+    "./index.ts",
     "./src/core.ts",
     "./src/core/engine.ts",
     "./src/core/gameobject.ts",

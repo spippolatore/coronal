@@ -4,7 +4,7 @@ import {Input} from '../input';
  * A GameEngine is the root node of a given Game.
  * It handles various game Engine systems like the Input Component.
  */
-class GameEngine extends GameObject {
+export class GameEngine extends GameObject {
   constructor() {
     super();
     this.addComponent(Input);

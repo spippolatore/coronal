@@ -1,0 +1,9 @@
+test
+typings
+tsconfig.json
+typings.json
+.travis.yml
+
+*.ts
+!.js
+!*.d.ts

@@ -1,18 +1,18 @@
-<!--![Plasma Cover](docs/cover.svg)-->
+<!--![Coronal Cover](docs/cover.svg)-->
 
-# Plasma Game Engine
+# Coronal Game Engine
 
-[![Build Status](https://api.travis-ci.org/alaingalvan/Plasma.svg)](https://travis-ci.org/alaingalvan/Plasma) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
+[![Build Status](https://api.travis-ci.org/alaingalvan/coronal.svg)](https://travis-ci.org/alaingalvan/coronal) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org) [![Coveralls](https://coveralls.io/repos/github/alaingalvan/coronal/badge.svg?branch=master)](https://coveralls.io/github/alaingalvan/coronal)  [![Dependency Status](https://david-dm.org/alaingalvan/coronal.svg)](https://david-dm.org/alaingalvan/coronal) [![devDependency Status](https://david-dm.org/alaingalvan/coronal/dev-status.svg)](https://david-dm.org/alaingalvan/coronal#info=devDependencies)
 
 ```bash
-npm i plasma
+npm i coronal
 ```
 
-**Plasma** is a TypeScript Game Engine modeled after a number of libraries and engines, such as React, Unity, Angular 2, Three.js, Unreal Engine 4, Godot, and Game Maker Studio.
+**Coronal** is a TypeScript Game Engine modeled after a number of libraries and engines, such as React, Unity, Angular 2, Three.js, Unreal Engine 4, Godot, and Game Maker Studio.
 
 It's designed to have a lightweight core and extendable components, such as a Individual Renderers, Device plugins like MIDI controllers and Wacom Tablets, etc. A bundled and minified version of the engine is very small, and designed to work with tree-shaking systems like [WebPack 2](https://github.com/webpack/webpack/issues/1433).
 
-<!-- * [Versions - Currently @ 1.0.0](https://github.com/alaingalvan/plasma/versions)
+<!-- * [Versions - Currently @ 1.0.0](https://github.com/alaingalvan/coronal/versions)
 * [Documentation](docs/readme.md)
 * [Donations](https://alain.xyz/donate) -->
 
@@ -21,8 +21,8 @@ It's designed to have a lightweight core and extendable components, such as a In
 Let's make a cube that moves up according the arrow up button. From there we'll add our cube character to a level, and start our game engine.
 
 ```javascript
-import {GameObject, Input, KeyCode} from 'plasma';
-import {Renderer, Cube} from 'plasma-webgl';
+import {GameObject, Input, KeyCode} from 'coronal';
+import {Renderer, Cube} from 'coronal-webgl';
 
 /**
  * A cube that moves up according the arrow up button, and shoots a cube.
@@ -82,10 +82,10 @@ A Rendering System is then responsible for taking our **Game** and rendering/ani
 
 The **WebGLRenderer** for example will create a fullscreen canvas at in the **DOMElement** with `id='game'`, with a CubeCharacter at the origin, and a default camera at the point `vec3(10, 10, 10)` pointing at the origin `vec3(0, 0, 0)`.
 
-The [Plasma WebGL Module](https://github.com/alaingalvan/src/webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
+The [Coronal WebGL Module](https://github.com/alaingalvan/coronal-webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
 
 ### Engine Processor
 
 A Game Engine is powered by an **Update Loop**, a **Render Loop**, and a number of subsystems at different levels of abstraction, such as high level GUI managers to low level Input processors. These subsystems are detailed by Jason Gregory in his book [Game Engine Architecture](https://books.google.com/books?id=MCQbBAAAQBAJ&lpg=PP1&dq=page%2033%20game%20engine%20architecture&pg=PA33#v=onepage&q=33&f=false).
 
-**Plasma**'s Update/Render loop is delegated to the [Renderer](), which processes Plasma's Core components like **Input** updating and **Clock** updating, to the actual draw update.
+**Coronal**'s Update/Render loop is delegated to the [Renderer](https://github.com/alaingalvan/coronal-webgl/blob/master/src/rendering/renderer.ts), which processes coronal's Core components like **Input** updating and **Clock** updating, to the actual draw update.

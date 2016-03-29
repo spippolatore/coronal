@@ -1,19 +1,19 @@
 {
-  "name": "plasma",
+  "name": "coronal",
   "version": "0.0.1",
   "description": "A ES2015 TypeScript Game Engine inspired by React and Unity",
-  "main": "plasma.js",
+  "main": "dist/index.js",
   "directories": {
     "test": "test",
     "packages": "jspm_packages"
   },
   "scripts": {
     "build": "./node_modules/.bin/tsc",
-    "test": "./node_modules/.bin/mocha test/**/*.js --harmony --harmony_default_parameters"
+    "test": "./node_modules/.bin/mocha test/**/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alaingalvan/Plasma.git"
+    "url": "git+https://github.com/alaingalvan/coronal.git"
   },
   "keywords": [
     "game",
@@ -24,13 +24,16 @@
   "author": "Alain Galvan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/alaingalvan/Plasma/issues"
+    "url": "https://github.com/alaingalvan/coronal/issues"
   },
-  "homepage": "https://github.com/alaingalvan/Plasma#readme",
+  "homepage": "https://github.com/alaingalvan/coronal#readme",
   "devDependencies": {
     "chai": "^3.2.0",
     "mocha": "^2.2.5",
     "typescript": "^1.8.9",
     "typings": "^0.7.9"
+  },
+  "typescript": {
+    "definition": "index.d.ts"
   }
 }
