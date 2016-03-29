@@ -2,8 +2,7 @@
 
 # Coronal Game Engine
 
-[![Build Status](https://api.travis-ci.org/alaingalvan/coronal.svg)](https://travis-ci.org/alaingalvan/coronal) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org) [![Coveralls](https://coveralls.io/repos/github/alaingalvan/coronal/badge.svg?branch=master)](https://coveralls.io/github/alaingalvan/coronal)  [![Dependency Status](https://david-dm.org/alaingalvan/coronal.svg)](https://david-dm.org/alaingalvan/coronal) [![devDependency Status](https://david-dm.org/alaingalvan/coronal/dev-status.svg)](https://david-dm.org/alaingalvan/coronal#info=devDependencies)
-
+[![Build Status](https://api.travis-ci.org/alaingalvan/coronal.svg)](https://travis-ci.org/alaingalvan/coronal) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org) [![Coveralls](https://coveralls.io/repos/github/alaingalvan/coronal/badge.svg?branch=master)](https://coveralls.io/github/alaingalvan/coronal)  [![Dependency Status](https://david-dm.org/alaingalvan/coronal.svg)](https://david-dm.org/alaingalvan/coronal) [![devDependency Status](https://david-dm.org/alaingalvan/coronal/dev-status.svg)](https://david-dm.org/alaingalvan/coronal#info=devDependencies) [![npm version](https://badge.fury.io/js/coronal.svg)](https://badge.fury.io/js/coronal)
 ```bash
 npm i coronal
 ```
