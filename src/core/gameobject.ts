@@ -4,8 +4,13 @@
  * They are composed of components such as transform, mesh, material, etc.
  */
 export abstract class GameObject {
-
+  // A pointer to your current root
   public root: GameObject;
+
+  // A Reference to your top root.
+  public scene: GameObject;
+
+  // All your components in your scene
   public components = [];
 
   update(deltaTime: number) {

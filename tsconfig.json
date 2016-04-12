@@ -25,6 +25,7 @@
     "rewriteTsconfig": true
   },
   "files": [
+    "./index.d.ts",
     "./index.ts",
     "./src/core.ts",
     "./src/core/engine.ts",
