@@ -17,6 +17,7 @@
     "!./jspm_packages/**/*.ts",
     "!./node_modules/**/*.ts",
     "!./typings/**/*.ts",
+    "!./index.d.ts",
     "./typings/main.d.ts"
   ],
   "compileOnSave": true,
@@ -25,7 +26,6 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "./index.d.ts",
     "./index.ts",
     "./src/core.ts",
     "./src/core/engine.ts",
