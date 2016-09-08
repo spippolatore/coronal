@@ -22,3 +22,5 @@ build/Release
 *.js
 *.js.map
 *.d.ts
+.vscode
+dist

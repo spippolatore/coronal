@@ -1,90 +1,159 @@
-<!--![Coronal Cover](docs/cover.svg)-->
-
 # Coronal Game Engine
 
-[![Build Status](https://api.travis-ci.org/alaingalvan/coronal.svg)](https://travis-ci.org/alaingalvan/coronal) [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org) [![Coveralls](https://coveralls.io/repos/github/alaingalvan/coronal/badge.svg?branch=master)](https://coveralls.io/github/alaingalvan/coronal)  [![Dependency Status](https://david-dm.org/alaingalvan/coronal.svg)](https://david-dm.org/alaingalvan/coronal) [![devDependency Status](https://david-dm.org/alaingalvan/coronal/dev-status.svg)](https://david-dm.org/alaingalvan/coronal#info=devDependencies) [![npm version](https://badge.fury.io/js/coronal.svg)](https://badge.fury.io/js/coronal)
+[![Npm Package][npm-img]][npm-url] [![Build Status][travis-img]][travis-url] ![Release][release-img] [![Dependency Status][david-img]][david-url] [![devDependency Status][david-dev-img]][david-dev-url]
+
 ```bash
-npm i coronal
+npm i coronal --save
 ```
 
-**Coronal** is a TypeScript Game Engine modeled after a number of libraries and engines, such as React, Unity, Angular 2, Three.js, Unreal Engine 4, Godot, and Game Maker Studio.
+**Coronal** is a TypeScript Game Engine modeled after a number of libraries and engines, such as [React](https://facebook.github.io/react/), [Unity](http://unity3d.com/), [Angular 2](http://angular.io), [Three.js](http://threejs.org/), Unreal Engine 4, Godot, and Game Maker Studio.
 
 It's designed to have a lightweight core and extendable components, such as a Individual Renderers, Device plugins like MIDI controllers and Wacom Tablets, etc. A bundled and minified version of the engine is very small, and designed to work with tree-shaking systems like [WebPack 2](https://github.com/webpack/webpack/issues/1433).
 
-<!-- * [Versions - Currently @ 1.0.0](https://github.com/alaingalvan/coronal/versions)
-* [Documentation](docs/readme.md)
-* [Donations](https://alain.xyz/donate) -->
-
 ## 5 Minute Quick Start
 
-Let's make a cube that moves up according the arrow up button. From there we'll add our cube character to a level, and start our game engine.
+Let's make a game where an ship can move up and down shooting to the right.
 
-```javascript
-import {GameObject, Input, KeyCode} from 'coronal';
-import {Renderer, Cube} from 'coronal-webgl';
+```js
+import {Pawn, GameObject, Input, KeyCode} from 'coronal';
+import {Sprite} from 'coronal/webgl';
 
-/**
- * A cube that moves up according the arrow up button, and shoots a cube.
- */
-class CubeCharacter extends GameObject {
+import {Bullet} from './bullet';
 
-  constructor() {
-    super();
-    // Add a Cube Component to our GameObject.
-    this.addComponent(Cube);
+class SpaceShip extends GameObject {
+  constructor(...args) {
+    super(...args);
+
+    this.inputMap = {
+      move: this.move
+    }
+  }
+  update(deltaTime: number) {
+
+    // Let's make a function that helps us move.
+    let move = (dir: string, spd: number) => 
+        this.transform.position[dir] += spd * deltaTime;
+
+    if (Input.getKey(KeyCode.ArrowUp))
+      move('y', -10);
+
+    if (Input.getKey(KeyCode.ArrowDown))
+      move('y', 10);
+
+    if (Input.getKey(KeyCode.Space))
+      shoot();
+
+    if (outOfBounds)
+      this.destroy();
   }
 
-  update(deltaTime: number) {    
-    // Check if the ArrowUp key is currently pressed.
-    if (Input.getKey(KeyCode.ArrowUp))
-      this.transform.position.x += 10 * deltaTime; // Move 10 units per second
+  shoot() {
+    this.root.spawn(Bullet, this.position);
+  }
+
+  render() {
+    return Sprite({src: '/assets/ship.png', position: vec3(0, 0, 0)});
   }
 }
 
-// The Game is only made of one object, a CubeCharacter.
-Renderer.render(CubeCharacter, document.getElementById('game'));
+export class Game extends GameObject {
+  render() {
+    return Scene(
+      SpaceShip({position: vec3(0, 0, 4)}),
+      Astroid()
+  );
+  }
+}
+
 ```
 
-What will happen here is the `Renderer` will render the `CubeCharacter` we made onto a **canvas** created by it and update it ever 60 fps. Every frame the `update` function of the character will be called, as well as those of the components that the GameObject is made of.
+### React Integration
 
-<!-- If you want to go further, follow some of the tutorial examples in the docs. These tutorials are in reality full games, so you get to see the full picture!
+Coronal works out of the box with React, just import `'react-coronal'` and you're ready to roll, just mount your game's root node under the prop `game`.
 
-#### Easy
+```js
+import * as React from 'react';
+import {Canvas} from 'react-coronal';
 
-- [Anaconda - Snake Clone]()
-- [Blitz - 1984 Clone]()
+import {Game} from './game';
 
-#### Intermediate
+const styles = {
+  width: '100vw',
+  height: '100vh'
+}
 
-- [PXWars - Top Down Shooter]()
-- [SoundStrike - MIDI Piano Practice]()
+// Stateless Components :)
+export const ReactGame = (props) => (<Canvas style={styles} game={Game} />);
 
-#### Challenging
-
-- [Beast - Monster RPG]()
-- [Ora - 2D Platformer]()
-- [Caliber - Online Shooter]() -->
+```
 
 ## Architecture
 
-<!-- ![Game Tree](docs/img/gametree.svg) -->
+Fundimentally, a Game can be described as a nested tree of components. Each component can communicate with the other components thanks to references between them, thus they can remove themselves, spawn new members of the tree, even change the tree entirely.
 
 ### GameObject Tree
 
-You can think of a **Game** as a tree of `GameObject`(s), each of which is made of components. This design applies to everything, from characters to levels, to the entire game, everything is a `GameObject`.
+Coronal follows the **Component Tree Architecture** similar to most front end frameworks like [React](https://facebook.github.io/react/) and [Angular 2](https://angular.io). You can think of a **Game** as a tree of `GameObject`(s), each of which is made of `GameObject`(s). This design applies to everything, from characters to levels, to the entire game, everything is a `GameObject`.
 
-A Rendering System is then responsible for taking our **Game** and rendering/animating it. We also use this system to get implementation specific classes like 3D Models exported from programs like Blender to Sprites.
+However, unlike Web Components, a GameObject follows a *polling architecture* vs a *reactive architecture*, simply due to the nature of games and their dependence on a frame rate, so **GameObjects** follow the interface:
+
+
+
+```ts
+interface GameObject {
+  constructor(state: any, ...args: GameObject[]),
+  // Primary Functions
+  update: (deltaTime: number) => void,
+  render: () => GameObject | void,
+
+  // Tree Pointers
+  get root: GameObject | null,
+
+  get components: ComponentTree, // Immutable data structure similar to a map, you can get and add to it.
+  set components: (...args: GameObject[]) => ComponentTree,
+
+  // Events
+  destroy: (gameObject = this) => void,
+  spawn: (gameObject: GameObject) => void,
+
+  // Lifecycle Roots
+  onSpawn: () => void,
+  onDestroy: () => void,
+  onCollide: (g: gameObject) => void
+  onComponentsChange: () => void
+}
+```
+
+You'll note that unlike React, a component has access to both it's parent and children.
+
+Building on top of this architecture are the **Scene**, **Actor**, and **Pawn** classes, which serve to be preconfigured GameObjects with components to allow things like positioning and interfacing with a game's inputs.
+
+A Rendering System is then responsible for taking our **Game** and rendering/animating it.
+
+We also use this system to get implementation specific classes like 3D Models exported from programs like Blender to Sprites.
 
 ### Decoupled Renderer
-
-<!-- ![Renderer Diagram](docs/img/renderer.svg) -->
-
-The **WebGLRenderer** for example will create a fullscreen canvas at in the **DOMElement** with `id='game'`, with a CubeCharacter at the origin, and a default camera at the point `vec3(10, 10, 10)` pointing at the origin `vec3(0, 0, 0)`.
 
 The [Coronal WebGL Module](https://github.com/alaingalvan/coronal-webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
 
 ### Engine Processor
 
-A Game Engine is powered by an **Update Loop**, a **Render Loop**, and a number of subsystems at different levels of abstraction, such as high level GUI managers to low level Input processors. These subsystems are detailed by Jason Gregory in his book [Game Engine Architecture](https://books.google.com/books?id=MCQbBAAAQBAJ&lpg=PP1&dq=page%2033%20game%20engine%20architecture&pg=PA33#v=onepage&q=33&f=false).
+A Game Engine is powered by an **Update Loop**, a **Render Loop**, and a number of subsystems at different levels of abstraction, from high level GUI managers to low level Input processors. Jason Gregory in his book [Game Engine Architecture](https://books.google.com/books?id=MCQbBAAAQBAJ&lpg=PP1&dq=page%2033%20game%20engine%20architecture&pg=PA33#v=onepage&q=33&f=false) gives a great taxonomy of game engine modules.
 
 **Coronal**'s Update/Render loop is delegated to the [Renderer](https://github.com/alaingalvan/coronal-webgl/blob/master/src/rendering/renderer.ts), which processes coronal's Core components like **Input** updating and **Clock** updating, to the actual draw update.
+
+[website-img]: docs/brand/cover.png
+[website-url]: https://coronal.io
+[release-img]: https://img.shields.io/badge/release-0.1.0-4dbfcc.svg?style=flat-square
+[license-img]: http://img.shields.io/:license-isc-blue.svg?style=flat-square
+[license-url]: https://opensource.org/licenses/ISC
+[david-url]: https://david-dm.org/alaingalvan/coronal
+[david-img]: https://david-dm.org/alaingalvan/coronal.svg?style=flat-square
+[david-dev-url]: https://david-dm.org/alaingalvan/coronal#info=devDependencies
+[david-dev-img]: https://david-dm.org/alaingalvan/coronal/dev-status.svg?style=flat-square
+[travis-img]: https://api.travis-ci.org/alaingalvan/coronal.svg?style=flat-square
+[travis-url]:https://travis-ci.org/alaingalvan/coronal
+[npm-img]: https://img.shields.io/npm/v/coronal.svg?style=flat-square
+[npm-url]: http://npm.im/coronal
+[coveralls-img]: https://coveralls.io/repos/github/alaingalvan/coronal/badge.svg?branch=master&style=flat-square
+[coveralls-url]:https://coveralls.io/github/alaingalvan/coronal

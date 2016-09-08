@@ -1,7 +1,7 @@
 {
   "name": "coronal",
-  "version": "0.0.1",
-  "description": "A ES2017 TypeScript Game Engine inspired by React and Unity",
+  "version": "0.1.0",
+  "description": "A TypeScript Game Engine inspired by React and Unity",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -25,11 +25,14 @@
   "homepage": "https://coronal.io",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.4.5",
-    "typescript": "^1.8.10",
-    "typings": "^0.8.1"
+    "mocha": "^3.0.2",
+    "typescript": "^2.0.2",
+    "@types/chai": "^3.4.30",
+    "@types/mocha": "^2.2.29"
   },
   "typescript": {
     "definition": "index.d.ts"
+  },
+  "dependencies": {
   }
 }
