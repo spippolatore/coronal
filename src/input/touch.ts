@@ -7,15 +7,15 @@ export interface ITouches {
 export class Touch {
   public touches:ITouches[] = [];
   constructor() {
-    window.addEventListener("touchstart", (e) => this.touchStartCallback(e), false);
-    window.addEventListener("touchend", (e) => this.touchEndCallback(e), false);
-    window.addEventListener("touchcancel", (e) => this.touchCancelCallback(e), false);
-    window.addEventListener("touchmove", (e) => this.touchMoveCallback(e), false);
+    addEventListener("touchstart", this.touchStartCallback, false);
+    addEventListener("touchend", this.touchEndCallback, false);
+    addEventListener("touchcancel", this.touchCancelCallback, false);
+    addEventListener("touchmove", this.touchMoveCallback, false);
   }
-  touchStartCallback(e) {
+  touchStartCallback = (e) => {
     this.touches.push(this.copyTouch(e.changedTouches));
   }
-  touchEndCallback(e) {
+  touchEndCallback = (e) => {
     var touches = e.changedTouches;
     for (var i = 0; i < touches.length; i++) {
       var idx = this.ongoingTouchIndexById(touches[i].identifier);
@@ -25,13 +25,13 @@ export class Touch {
       }
     }
   }
-  touchCancelCallback(e) {
+  touchCancelCallback = (e) => {
     var touches = e.changedTouches;
     for (var i = 0; i < touches.length; i++) {
       this.touches.splice(i, 1);  // remove it; we're done
     }
   }
-  touchMoveCallback(e) {
+  touchMoveCallback = (e) => {
     var touches = e.changedTouches;
     for (var i = 0; i < touches.length; i++) {
       var idx = this.ongoingTouchIndexById(touches[i].identifier);

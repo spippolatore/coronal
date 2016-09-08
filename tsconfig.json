@@ -1,43 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
+    "lib": [
+      "es2017",
+      "es2017.object",
+      "es2017.sharedmemory",
+      "es2016",
+      "es2016.array.include",
+      "es2015",
+      "es2015.core",
+      "es2015.promise",
+      "es2015.collection",
+      "es5",
+      "dom"
+    ],
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "noImplicitAny": false,
-    "removeComments": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmitHelpers": false,
     "sourceMap": true,
-    "outDir": "dist"
+    "strictNullChecks": true,
+    "jsx": "react"
   },
-  "filesGlob": [
-    "./**/*.ts",
-    "!./dist/**/*.ts",
-    "!./jspm_packages/**/*.ts",
-    "!./node_modules/**/*.ts",
-    "!./typings/**/*.ts",
-    "!./index.d.ts",
-    "./typings/main.d.ts"
-  ],
-  "compileOnSave": true,
-  "buildOnSave": true,
-  "atom": {
-    "rewriteTsconfig": true
-  },
-  "files": [
-    "./index.ts",
-    "./src/core.ts",
-    "./src/core/engine.ts",
-    "./src/core/gameobject.ts",
-    "./src/input.ts",
-    "./src/input/keyboard.ts",
-    "./src/input/mouse.ts",
-    "./src/input/touch.ts",
-    "./src/math.ts",
-    "./src/math/angle.ts",
-    "./src/math/easing.ts",
-    "./test/core/gameobject.spec.ts",
-    "./typings/main.d.ts"
-  ]
+  "compileOnSave": false,
+  "buildOnSave": false
 }

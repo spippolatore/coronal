@@ -1,5 +1,5 @@
 /**
- * GameObjects are Objects that can be processed by the Plasma Engine.
+ * GameObjects are Objects that can be processed Coronal.
  *
  * They are composed of components such as transform, mesh, material, etc.
  */

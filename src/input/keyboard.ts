@@ -2,51 +2,42 @@
  * A Singleton for Keyboard Events.
  */
 export class Keyboard {
-  // Momoization key map.
-  public keys: Object = {};
+
+  // Momoized Hashmap
+  private keys: KeyHashMap = {};
 
   /**
    * Create Keyboard Singleton.
    * @param  {HTMLCanvasElement} canvas Canvas to check events.
    */
-  constructor() {
-    window.addEventListener('keydown', (e) => this.keyDownCallback(e));
-    window.addEventListener('keyup', (e) => this.keyUpCallback(e));
-  }
-
-  /** Maps keydown event to key map */
-  keyDownCallback(event: KeyboardEvent) {
-    this.keys[event.keyCode] = { down: true, pressed: true, released: false };
-  }
-
-  /** Maps keyup event to key map */
-  keyUpCallback(event: KeyboardEvent) {
-    this.keys[event.keyCode] = { down: false, pressed: false, released: true };
+  constructor(element: HTMLElement | Window = window) {
+    element.addEventListener('keydown', this.keyDownCallback);
+    element.addEventListener('keyup', this.keyUpCallback);
   }
 
   /**
    * Checks if a key is currently being pressed.
    * @param  {KeyCode} key key to check.
    */
-  getKey(key: KeyCode) {
-    return (this.keys[key] === undefined) ? false : this.keys[key].down;
-  }
+  getKey = (key: KeyCode) =>
+    this.exists(key, 'down');
+
 
   /**
    * Checks if a key has been pressed this frame.
    * @param  {KeyCode} key key to check.
    */
-  getKeyDown(key: KeyCode) {
-    return (this.keys[key] === undefined) ? false : this.keys[key].pressed;
-  }
+  getKeyDown = (key: KeyCode) =>
+    this.exists(key, 'pressed');
+
 
   /**
    * Checks if a key has been released this frame.
    * @param  {KeyCode} key key to check.
    */
-  getKeyUp(key: KeyCode) {
-    return (this.keys[key] === undefined) ? false : this.keys[key].released;
-  }
+  getKeyUp = (key: KeyCode) =>
+    this.exists(key, 'released');
+
 
   /* Updates the keymap*/
   update() {
@@ -55,6 +46,18 @@ export class Keyboard {
       this.keys[e].released = false;
     }
   }
+
+  /** Maps keydown event to key map */
+  private keyDownCallback = (event: KeyboardEvent) =>
+    this.keys[event.keyCode] = { down: true, pressed: true, released: false };
+
+
+  /** Maps keyup event to key map */
+  private keyUpCallback = (event: KeyboardEvent) =>
+    this.keys[event.keyCode] = { down: false, pressed: false, released: true };
+
+  private exists = (key, res) =>
+    (this.keys[key] === undefined) ? false : this.keys[key][res];
 }
 
 export const enum KeyCode {
@@ -142,4 +145,12 @@ export const enum KeyCode {
   F12 = 113,
   Comma = 188,
   Period = 190
+}
+
+export interface KeyHashMap {
+  [index: string]: {
+    down: boolean,
+    pressed: boolean,
+    released: boolean
+  }
 }

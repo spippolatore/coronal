@@ -30,10 +30,10 @@ export class InputManager {
   }
   //Mouse
   mousePosition() {
-    return this.mouse.mousePosition;
+    return this.mouse.position;
   }
   mouseClick() {
-    return this.mouse.mouseClick;
+    return this.mouse.click;
   }
   //Touch
   touches() {
