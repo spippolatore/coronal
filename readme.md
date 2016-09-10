@@ -7,39 +7,40 @@
 [![devDependency Status][david-dev-img]][david-dev-url]
 
 ```bash
-npm i coronal --save
+npm i coronal -S
 ```
 
 > **Note**: This project is a work in progress, still trying to stablize the spec!
 
-**Coronal** is a TypeScript Game Engine modeled after a number of libraries and engines, such as [React](https://facebook.github.io/react/), [Unity](http://unity3d.com/), [Angular 2](http://angular.io), [Three.js](http://threejs.org/), [Unreal Engine 4](https://www.unrealengine.com), [Godot](https://godotengine.org/), and [Game Maker Studio](http://www.yoyogames.com/gamemaker).
-
-It's designed to have a lightweight core and extendable components, such as a Individual Renderers, Device plugins like MIDI controllers and Wacom Tablets, etc. A bundled and minified version of the engine is very small, and designed to work with tree-shaking systems like [WebPack 2](https://github.com/webpack/webpack/issues/1433) and [Rollup](http://rollupjs.org/).
+**Coronal** is a TypeScript Game Library modeled after [React](https://facebook.github.io/react/), [Unity](http://unity3d.com/), [Angular 2](http://angular.io), [Three.js](http://threejs.org/), [Unreal Engine 4](https://www.unrealengine.com), [Godot](https://godotengine.org/), and [Game Maker Studio](http://www.yoyogames.com/gamemaker).
 
 ## 5 Minute Quick Start
 
-Let's make a game where an ship can move up and down shooting to the right.
+Let's make a game where an ship can move.
 
 ```js
-import {Pawn, GameObject, Input, KeyCode, vec2} from 'coronal/core';
+import {Pawn, GameObject} from 'coronal/core';
 import {Sprite} from 'coronal/graphics';
 import {Engine} from 'coronal/webgl';
 
-let App = () => Pawn(
-  {position: vec2(4,4)},
-  Sprite('/sprites/player.png')
-);
+let App = () =>
+  Pawn({position: {x: 4, y: 4} })(
+    Sprite({src: '/sprites/spaceship.png'})
+    Sprite({src: '/sprites/booster.gif'})
+  );
 
-Engine.render(App);
+let node = document.getElementById('game-canvas');
+
+Engine.render(App, node);
 ```
 
 ### React Integration
 
-Coronal works out of the box with React, just import `'react-coronal'` and you're ready to roll, just mount your game's root node under the prop `game`.
+Coronal works out of the box with React, import `'react-coronal'` and you're ready to roll, just mount your game's root node as a child of the `Canvas` component.
 
 ```js
 import * as React from 'react';
-import {Canvas} from 'react-coronal';
+import Canvas from 'react-coronal';
 
 import Game from './game';
 
@@ -51,7 +52,7 @@ const styles = {
 // Stateless Components :)
 export const ReactGame = (props) => (
   <Canvas style={styles}>
-  {Game}
+    {Game}
   </Canvas>
 );
 
@@ -67,10 +68,8 @@ Coronal follows the **Component Tree Architecture** similar to most front end fr
 
 However, unlike Web Components, a GameObject follows a *polling architecture* vs a *reactive architecture*, simply due to the nature of games and their dependence on a frame rate, so **GameObjects** follow the interface:
 
-
-
 ```ts
-interface GameObject {
+class GameObject {
   constructor(props: any),
   // Primary Functions
   update: (deltaTime: number) => void,
@@ -101,7 +100,7 @@ We also use this system to get implementation specific classes like 3D Models ex
 
 ### Decoupled Renderer
 
-The [Coronal WebGL Module](https://github.com/alaingalvan/coronal-webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.  
+The [Coronal WebGL Module](https://github.com/alaingalvan/coronal-webgl) can handle a number of things, such as change the canvas size (the game window), make the aspect ratio of the rendered scene constant, creating custom shader materials, procedural geometry, postprocessing effects, etc.
 
 ```bash
 |- coronal/
